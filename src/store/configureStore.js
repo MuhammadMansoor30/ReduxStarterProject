@@ -16,7 +16,7 @@ const store = createStore(
 
 export default store;
 
-// NOTES:
+// NOTES: (Tradional Approah to redux state manegment and dev-tools by manually adding everything)
 // (SEC 3)
 // For creating store we will install 'redux' libraray using npm.
 // We will use the create store function/method to create the store.
