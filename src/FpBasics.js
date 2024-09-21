@@ -17,6 +17,7 @@ const resultPipe_1 = pipe(trim, upperCase, greetings_1("Good Morning"));
 console.log(resultPipe_1(userName));
 
 // NOTES:
+// (SEC 2)
 // For Compiltaion of webpack we will use add webpack to package.json file as start or build instead of index.js file.
 // For Starting of project we will use webpack serve --open as start command in package.json.
 
