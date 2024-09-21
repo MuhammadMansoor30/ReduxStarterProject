@@ -12,5 +12,6 @@ module.exports = {
     },
     port: 3000,
   },
+  devtool: "source-map",  // New item added for dev-tools extension for code tracing more in configureStore.js file.
   mode: 'development',
 };
