@@ -34,6 +34,9 @@ const slice = createSlice({
     initialState: [], // Giving state of an empty array.
     reducers: {
         // action: function  // This is the syntax of writing reducers inside of slice
+        getTasks: (state, action) => {   // Adding new action to get tasks from backend
+            return action.payload.tasks;
+        },
         addTask: (state, action) => {  // Getting the action type from the addTask var
             state.push({
                 id: ++id,
@@ -54,7 +57,7 @@ const slice = createSlice({
 });
 
 console.log(slice);
-export const {addTask, removeTask, taskCompleted} = slice.actions;   // Exporting the actions from slice
+export const {getTasks, addTask, removeTask, taskCompleted} = slice.actions;   // Exporting the actions from slice
 export default slice.reducer;   // For exporting the reducer functions of slice.
 
 // NOTES:

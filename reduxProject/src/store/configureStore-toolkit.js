@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';  // Using the redux toolkit p
 // import reducer from './reducer';  // For updating state using reducer
 import taskReducer from './task-toolkit';  // For updating state using slice
 import employeeReducer from './employee';  // For Practicing employee actiona using redux-toolkit.
-import {log, error} from '../middleware/log';
+import {log, error} from './middleware/log';
 
 // const store = configureStore({reducer});  // Configuring store using redux toolkit package. Single Reducer
 

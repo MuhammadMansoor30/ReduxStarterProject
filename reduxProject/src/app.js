@@ -1,16 +1,31 @@
 // import store from "./store/configureStore";   // Traditional way to create store.
 import store from "./store/configureStore-toolkit";   // Modern way to create store suing redux-toolkit.
 import { addEmployee, removeEmployee } from "./store/employee";   // For Practicing of redux-toolkit
-import { addTask, removeTask, taskCompleted } from "./store/task-toolkit";  // Using redux-toolkit approach
+import { getTasks, addTask, removeTask, taskCompleted } from "./store/task-toolkit";  // Using redux-toolkit approach
 // import { addTask, removeTask, taskCompleted } from "./store/task";  // If we are using DuckModule approach
 // import { addTask, removeTask, taskCompleted } from "./store/actions";  // For Separte Files
+import axios from 'axios';
 
 function app() {
     console.log('Redux Starter Project');
     // console.log(store.getState());   // Executes the store and gets the current state of store from reducer.
-    reduxPrac();
-    reduxPracEmp();
+    // reduxPrac();
+    // reduxPracEmp();   // Commeting them so that we can practice logic of redux using backend
+    gettingTasks();  // getting tasks from backend server.
 }
+
+// (SEC 7) Creating Api Request and dispacthing actions using backend.
+const gettingTasks = async () => {
+    try {
+        const response = await axios.get('http://localhost:7333/api/tasks');
+        console.log(response.data);
+
+        store.dispatch(getTasks({tasks: response.data}));  // We have to call the action method inside of dispatch function.
+    } 
+    catch (error) {
+        store.dispatch({type: "SHOW_ERROR", payload:{error: error.message}});    
+    }
+};
 
 // (Sec 5 exercise)
 function reduxPracEmp(){
