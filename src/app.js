@@ -20,6 +20,8 @@ function reduxPracEmp(){
     console.log("Employee", store.getState());
     store.dispatch(removeEmployee({id: 1}));
     console.log(store.getState());
+
+    store.dispatch({type: "SHOW_ERROR", payload: {error: "User Not Found"}}); // Testing error middleware created.
 }
 
 // (SEC 5) Using Redux Toolkit
