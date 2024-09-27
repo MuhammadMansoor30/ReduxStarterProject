@@ -1,3 +1,5 @@
+// (SEC 3)
+// Creating actions reducers and function without redux-toolkit usign tradtional approach.
 // Implementing the Duck Module by combining all the files action, actionTypes and reducer together.
 // This is helful if we have multiple state objects like task state and employees stae as well.
 // IF we dont want this old folder strtucture is also good with each state separted in its own folder like tasks and emplyoees.

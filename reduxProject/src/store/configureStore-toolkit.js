@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';  // Using the redux toolkit p
 import taskReducer from './task-toolkit';  // For updating state using slice
 import employeeReducer from './employee';  // For Practicing employee actiona using redux-toolkit.
 import {log, error} from './middleware/log';
+import api from './middleware/api';
 
 // const store = configureStore({reducer});  // Configuring store using redux toolkit package. Single Reducer
 
@@ -11,7 +12,7 @@ const store = configureStore({
         tasks: taskReducer,
         employee: employeeReducer,
     },
-    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), log, error]
+    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), api, log, error]   // Calling the api middleware for api req
 });  // Configuring store using redux-toolkit for multiple reducers.
 
 export default store;
