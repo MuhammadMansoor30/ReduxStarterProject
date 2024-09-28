@@ -1,14 +1,23 @@
 import axios from "axios";
+import {apiCallback} from '../generalApi';
 
 const api = ({dispatch}) => next => async (action) =>{
-    if(action.type !== 'apiRequest'){
-        return next(action);   // Execute next middleware if action type is not apiRequest.
+    // if(action.type !== 'apiRequest'){
+    //     return next(action);   // Execute next middleware if action type is not apiRequest.
+    // }
+
+    if(action.type !== apiCallback.type){
+        return next(action);   // Creating and using a general Api action and using its type
     }
 
     const {url, method, data, onStart, onSuccess, onError} = action.payload;
 
     if(onStart){
-        dispatch({type: onStart});   // Dispatch the onStart action defined in app.js file if action type is true.    
+        dispatch({type: onStart, payload: {
+            tasks: [],
+            loading: true,
+            error: null
+        }});   // Dispatch the onStart action defined in app.js file if action type is true.    
     }
 
     try {
@@ -19,9 +28,17 @@ const api = ({dispatch}) => next => async (action) =>{
             data 
         });
 
-        dispatch({type: onSuccess, payload: response.data});
-    } catch (error) {
-        dispatch({type: onError, payload: {error: error.message}});
+        dispatch({type: onSuccess, payload: {
+            tasks: response.data,
+            loading: false,
+            error: null,
+        }});
+    } catch (err) {
+        dispatch({type: onError, payload: {
+            tasks: [],
+            loading: false,
+            error: err.message
+        }});
     }
 };
 
@@ -35,3 +52,4 @@ export default api;
 // In the middleware wher we use store we can also directy call the dispacth metjod using object destruction way like ({dispatch}).
 // Or we can use store to execute the method like (store.dispatch(action))
 // If we have configured middleware to fetcgData or perform server fucntions then we dont need separate api function inside of the main file where slice is being defined in this case its 'task-toolkit-api.js'.
+// For showing the entire state object with loading and error we have to pass the entire object to the dispatch method else it will only show things which we will pass to it.

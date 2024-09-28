@@ -2,7 +2,7 @@
 import store from "./store/configureStore-toolkit";   // Modern way to create store suing redux-toolkit.
 import { addEmployee, removeEmployee } from "./store/employee";   // For Practicing of redux-toolkit
 import { getTasks, addTask, removeTask, taskCompleted } from "./store/task-toolkit";  // Using redux-toolkit approach
-import { fetchTasks } from "./store/task-toolkit-apis";
+import { addingTask, fetchTasks, updatingTask, loadTasks, deletingTask } from "./store/task-toolkit-apis";
 // import { addTask, removeTask, taskCompleted } from "./store/task";  // If we are using DuckModule approach
 // import { addTask, removeTask, taskCompleted } from "./store/actions";  // For Separte Files
 import axios from 'axios';
@@ -14,16 +14,21 @@ function app() {
     // reduxPracEmp();   // Commeting them so that we can practice logic of redux using backend
     // gettingTasks();  // getting tasks from backend server.
     // store.dispatch(fetchTasks());    // Fetching tasks from server using AsyncThunk method
-    store.dispatch({   // dispatching the api requets using the api middleware
-        type: 'apiRequest',
-        method: 'GET',   // By default it is always GET method in axios.
-        payload: {
-            url: "/tasks",
-            onStart: 'apiRequested',
-            onSuccess: 'getTasks',
-            onError: "SHOW_ERROR",
-        }  // Passing the onSuccess and onError actions along with getTaks method to get tasks
-    });
+    // store.dispatch({   // dispatching the api requets using the api middleware
+    //     type: 'apiRequest',
+    //     payload: {
+    //         url: "/tasks",
+    //         method: 'GET',   // By default it is always GET method in axios.
+    //         onStart: 'apiRequested',
+    //         onSuccess: 'getTasks',
+    //         onError: "SHOW_ERROR",
+    //     }  // Passing the onSuccess and onError actions along with getTaks method to get tasks
+    // });
+
+    store.dispatch(loadTasks());    // Making the Api request using the General API Action
+    // store.dispatch(addingTask({task: 'Task Added From Frontend Redux'}));   // Api request for adding task
+    store.dispatch(updatingTask({id: 6, completed: true}));
+    store.dispatch(deletingTask({id: 7}));
 }
 
 // (SEC 7) Creating Api Request and dispacthing actions using backend.

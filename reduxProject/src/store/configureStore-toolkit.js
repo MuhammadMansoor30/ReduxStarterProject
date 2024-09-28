@@ -12,7 +12,7 @@ const store = configureStore({
         tasks: taskReducer,
         employee: employeeReducer,
     },
-    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), api, log, error]   // Calling the api middleware for api req
+    middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), log, api, error]   // Calling the api middleware for api req
 });  // Configuring store using redux-toolkit for multiple reducers.
 
 export default store;
