@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../utils/http';
-import {apiCallback} from '../store/generalApi';
+import {apiCallback} from './generalApi';
 
 let id = 0;
 
