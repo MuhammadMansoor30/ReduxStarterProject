@@ -26,7 +26,7 @@ function app() {
     // });
 
     store.dispatch(loadTasks());    // Making the Api request using the General API Action
-    // store.dispatch(addingTask({task: 'Task Added From Frontend Redux'}));   // Api request for adding task
+    store.dispatch(addingTask({task: 'Task Added From Frontend Redux'}));   // Api request for adding task
     store.dispatch(updatingTask({id: 6, completed: true}));
     store.dispatch(deletingTask({id: 7}));
 }
