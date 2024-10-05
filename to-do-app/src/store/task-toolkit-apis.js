@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from '../utils/http';
+import { createSlice } from "@reduxjs/toolkit";
 import {apiCallback} from './generalApi';
 
 let id = 0;
@@ -10,17 +9,6 @@ let initialState = {
     error: null,
 };
 
-// Use this function only when trying to fetch data manually without using the 'api' middleware.
-// export const fetchTasks = createAsyncThunk("fetchTasks", async (a, {rejectWithValue}) => {
-//     try{
-//         const response = await axios.get('/tasks');    // Making requets using the baseUrl defined in the utils folder
-//         return {tasks: response.data};
-//     }
-//     catch(error){
-//         return rejectWithValue({error: error.message}); // Using it to get the value of error
-//     }
-// });  // Create Async Thunk takes 2 args 1st is name of Action and other is callback which is async function call to api.
-
 const slice = createSlice({
     name: "Tasks",  // Giving slice a name 
     initialState, // Giving inital state obj as initital state.
@@ -28,17 +16,21 @@ const slice = createSlice({
         // action: function  // This is the syntax of writing reducers inside of slice
         apiRequested: (state, action) => {
             state.loading = true;
+            state.tasks = [];
+            state.error = null;
         },
         getTasks: (state, action) => {   // Adding new action to get tasks from backend
-            state.tasks = action.payload.tasks;  // Setting the tasks array of initial state obj 
+            state.tasks = action.payload;  // Setting the tasks array of initial state obj 
             state.loading = false;
+            state.error = null;
         },
         showError: (state, action) => {
-            state.error = action.payload.error;
+            state.error = action.payload;
             state.loading = false; 
+            state.tasks = [];
         },   // Adding the SHOW_ERROR action here to show the error inside of redux-dev tools.
         addTask: (state, action) => {  // Getting the action type from the addTask var
-            state.tasks.push(action.payload.task); // Modifying it to add Tasks using backend Server.
+            state.tasks.push(action.payload); // Modifying it to add Tasks using backend Server.
         },
         removeTask: (state, action) => {
             const index = state.findIndex(task => task.id === action.payload.id);
@@ -50,20 +42,6 @@ const slice = createSlice({
             state.tasks[index].completed = action.payload.completed;  // Getting the value of specific index of state array and updating its completed status
         }
     },
-    // extraReducers: {
-    //     [fetchTasks.pending]: (state, action) => {
-    //         state.loading = true;
-    //     },
-    //     [fetchTasks.fulfilled]: (state, action) => {
-    //         state.tasks = action.payload.tasks;
-    //         state.loading = false;
-    //     },
-    //     [fetchTasks.rejected]: (state, action) => {
-    //         state.error = action.payload.error;
-    //         state.loading = false;
-    //     },
-    // }
-    // We also dont need these extraReducers when we have created a middleware function.
 });
 
 export const {apiRequested, getTasks, showError, addTask, removeTask, taskCompletedd} = slice.actions;   // Exporting the actions from slice
