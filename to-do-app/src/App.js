@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import AddTask from './components/AddTask';
+import Tasks from './components/Tasks';
+// import StoreContext from './contexts/StoreContext';
+// import store from './store/configureStore-toolkit';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <StoreContext.Provider value={store}>
+    //   <Tasks />
+    // </StoreContext.Provider>
+    <>
+    <AddTask />
+    <Tasks />
+    </>
   );
 }
 
 export default App;
+
+// NOTES (SEC 8):
+// Creating a StoreContext and using it to pass the store value down the components hierarchy.
+// The value props holds the value of store and passe sit down the DOM tree of React. 
+// Commenting all the conext code after using the react-redux library so we dont need it.
